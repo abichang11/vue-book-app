@@ -1,9 +1,21 @@
+<script setup lang="ts">
+import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth'
+
+const signIn = (): void => {
+  const auth = getAuth()
+  const provider = new GoogleAuthProvider()
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <button @click="signIn">Google</button>
 </template>
 
 <style lang="scss">
