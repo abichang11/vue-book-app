@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import 'normalize.css'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth'
+import TheHeader from '@/components/TheHeader.vue'
 
 const signIn = (): void => {
   const auth = getAuth()
@@ -15,10 +17,12 @@ const signIn = (): void => {
 </script>
 
 <template>
+  <TheHeader />
   <button @click="signIn">Google</button>
 </template>
 
 <style lang="scss">
+// 汎用スタイル
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,16 +31,7 @@ const signIn = (): void => {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  text-decoration: none;
 }
 </style>
