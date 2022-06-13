@@ -21,6 +21,7 @@
 }
 
 .Header {
+  height: 40px;
   position: relative;
   background-color: #daf2e9;
   padding: 10px 0;
