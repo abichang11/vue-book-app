@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import SearchBook from "../views/SearchBook.vue"
-import UserLogin from "../views/UserLogin.vue"
-import UserRegister from "../views/UserRegister.vue"
+import UserLogin from "../views/UserLogin.vue";
+import UserRegister from "../views/UserRegister.vue";
+import SearchBook from "../views/SearchBook.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
