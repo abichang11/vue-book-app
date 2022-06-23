@@ -43,19 +43,21 @@ const toHome = () => {
 }
 </script>
 <template>
-  <div>
-    <div class="details">
-      <div class="details__left">
-        <div class="details__image">
-          <img :src="bookInfo.largeImageUrl" alt="" />
-          <p>{{ bookInfo.title }}</p>
-          <p>{{ bookInfo.author }}</p>
+  <div class="BookDetail">
+    <div class="BookDetail_Area">
+      <div class="BookDetail_Left">
+        <div class="BookInfo BookDetail_Info">
+          <div class="BookInfo_Image">
+            <img :src="bookInfo.largeImageUrl" alt="" />
+          </div>
+          <p class="BookInfo_Title">{{ bookInfo.title }}</p>
+          <p class="BookInfo_Author">{{ bookInfo.author }}</p>
         </div>
         <!-- <button v-if="getUid" @click="openModal" class="btn__contents">
           <i class="fas fa-book-open"></i>本棚に追加する
         </button> -->
       </div>
-      <div class="details__right">
+      <div class="BookDetail_Right">
         <table class="table">
           <caption>
             本の詳細
@@ -102,6 +104,29 @@ const toHome = () => {
 </template>
 
 <style lang="scss" scoped>
+.BookDetail {
+  margin: 10px auto;
+  min-height: 100vh;
+  max-width: 1117px;
+  width: 100%;
+  &_Area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  &_Left {
+    margin-right: 10px;
+  }
+  &_Right {
+    max-width: 500px;
+  }
+  &_Info {
+    background: #fff;
+    border-radius: 5px;
+    cursor: default;
+  }
+}
 .details__image {
   background-color: #fff;
   width: 220px;
@@ -128,8 +153,6 @@ const toHome = () => {
   border-collapse: collapse;
   margin: 0 auto;
   padding: 0;
-  max-width: 1117px;
-  width: 80%;
   table-layout: auto;
   color: #000;
   &__row {
@@ -157,44 +180,10 @@ const toHome = () => {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .last td:last-child {
-    width: 100%;
-  }
-  .table {
-    width: 100%;
-    &__head {
-      background-color: #eee;
-      border-right: none;
-      height: 30px;
-      padding: 5px 10px 5px 10px;
-      white-space: nowrap;
-      &:last-child {
-        border: none;
-      }
-    }
-    &__body {
-      font-size: 13px;
-    }
-    &__row {
-      border-bottom: none;
-    }
-  }
-  .table th,
-  .table td {
-    border-bottom: none;
-    display: block;
-    width: 100%;
-  }
-
-  caption {
-    display: none;
-  }
-}
-
 caption {
   background-color: #e5e5e5;
-  height: 50px;
+  height: 30px;
+  line-height: 30px;
   padding: 10px;
   vertical-align: middle;
   text-align: left;
@@ -223,39 +212,6 @@ caption {
 
     > i {
       color: #fcbd4c;
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .btn__contents {
-    max-width: 480px;
-    width: 80%;
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .details {
-    max-width: 480px;
-    width: 80%;
-    margin: 30px auto;
-    display: block;
-    &__left {
-      width: 100%;
-    }
-    &__image {
-      background-color: #fff;
-      width: 100%;
-      margin: 0 auto 10px auto;
-      padding: 20px 0;
-      border-radius: 5px;
-      > p {
-        font-size: 13px;
-      }
-    }
-    &__right {
-      width: 100%;
     }
   }
 }

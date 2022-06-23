@@ -45,8 +45,8 @@ const searchBook = () => {
 </script>
 
 <template>
-  <div>
-    <div class="SearchBook">
+  <div class="SearchBook">
+    <div>
       <p v-if="searchFlg">
         本が見つかりませんでした。別のキーワードも検索してみましょう。
       </p>
@@ -89,9 +89,10 @@ const searchBook = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .SearchBook {
   padding-top: 20px;
+  min-height: 100vh;
   &_Input {
     outline: 0;
     padding: 10px;
@@ -194,6 +195,7 @@ img {
   padding: 10px 30px;
   margin: 10px 0 20px 0;
   transition: 0.3s;
+  cursor: pointer;
   &:hover {
     background: #eee;
     color: #fcbd4c;
