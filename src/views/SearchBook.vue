@@ -50,36 +50,36 @@ const searchBook = () => {
       <p v-if="searchFlg">
         本が見つかりませんでした。別のキーワードも検索してみましょう。
       </p>
-      <input class="SearchBook__input" type="text" v-model="keyword" />
-      <button class="SearchBook__button" @click="searchBook()">
+      <input class="SearchBook_Input" type="text" v-model="keyword" />
+      <button class="SearchBook_Button" @click="searchBook()">
         <i class="fas fa-search"></i>
       </button>
     </div>
     <div class="SearchBook_ListArea">
       <div class="SearchBook_List">
         <ul v-for="book in books" :key="book.index">
-          <!-- <router-link
+          <router-link
             :to="{
-              name: 'Detail',
+              name: 'BookDetail',
               params: {
-                bookInfo: book.Item,
+                bookInfo: JSON.stringify(book.Item),
                 id: book.Item.isbn,
               },
             }"
-          > -->
-          <li class="SearchBook_Result">
-            <div class="BookInfo">
-              <div class="BookInfo_Image">
-                <img :src="book.Item.largeImageUrl" />
+          >
+            <li class="SearchBook_Result">
+              <div class="BookInfo">
+                <div class="BookInfo_Image">
+                  <img :src="book.Item.largeImageUrl" />
+                </div>
+                <p class="BookInfo_Title">{{ book.Item.title }}</p>
+                <p class="BookInfo_Author">{{ book.Item.author }}</p>
+                <p class="BookInfo_Price">
+                  {{ book.Item.itemPrice.toLocaleString('ja-JP') }}円
+                </p>
               </div>
-              <p class="BookInfo_Title">{{ book.Item.title }}</p>
-              <p class="BookInfo_Author">{{ book.Item.author }}</p>
-              <p class="BookInfo_Price">
-                {{ book.Item.itemPrice.toLocaleString('ja-JP') }}円
-              </p>
-            </div>
-          </li>
-          <!-- </router-link> -->
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -92,7 +92,7 @@ const searchBook = () => {
 <style lang="scss" scoped>
 .SearchBook {
   padding-top: 20px;
-  &__input {
+  &_Input {
     outline: 0;
     padding: 10px;
     height: 15px;
@@ -103,7 +103,7 @@ const searchBook = () => {
     vertical-align: top;
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
-  &__button {
+  &_Button {
     width: 40px;
     height: 35px;
     border-radius: 0 10px 10px 0;
@@ -130,6 +130,7 @@ const searchBook = () => {
     justify-content: center;
     > ul {
       list-style: none;
+      padding: 0;
     }
   }
   &_Result {
