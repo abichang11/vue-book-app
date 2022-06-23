@@ -3,10 +3,15 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // import Modal from '@/components/molecules/modal.vue'
 
+window.scrollTo({
+  top: 0,
+  behavior: 'smooth',
+})
+
 const router = useRouter()
 const route = useRoute()
 
-// const showContent = ref(false)
+const showContent = ref(false)
 const bookInfo = ref({})
 // const bookInfo = reactive({
 //   bookInfo: {},
@@ -14,8 +19,6 @@ const bookInfo = ref({})
 // })
 
 bookInfo.value = JSON.parse(route.params.bookInfo)
-console.log(bookInfo)
-
 // created() {
 //   console.log('ページが開きました')
 //   if (this.$route.params.id) {
@@ -32,9 +35,9 @@ console.log(bookInfo)
 //   sessionStorage.setItem('catch-params', JSON.stringify(this.bookInfo))
 // }
 
-// openModal = () => {
-//   showContent.value = true
-// }
+const openModal = () => {
+  showContent.value = true
+}
 // closeModal = () => {
 //   showContent.value = false
 // }
@@ -53,9 +56,9 @@ const toHome = () => {
           <p class="BookInfo_Title">{{ bookInfo.title }}</p>
           <p class="BookInfo_Author">{{ bookInfo.author }}</p>
         </div>
-        <!-- <button v-if="getUid" @click="openModal" class="btn__contents">
+        <button @click="openModal" class="btn__contents">
           <i class="fas fa-book-open"></i>本棚に追加する
-        </button> -->
+        </button>
       </div>
       <div class="BookDetail_Right">
         <table class="table">
@@ -119,7 +122,7 @@ const toHome = () => {
     margin-right: 10px;
   }
   &_Right {
-    max-width: 500px;
+    width: 500px;
   }
   &_Info {
     background: #fff;
@@ -155,6 +158,7 @@ const toHome = () => {
   padding: 0;
   table-layout: auto;
   color: #000;
+  width: 100%;
   &__row {
     background-color: #fff;
     padding: 0.35em;
@@ -196,13 +200,14 @@ caption {
   color: #fff;
   border-radius: 5px;
   padding: 10px 20px;
-  margin-bottom: 8px;
+  margin-top: 10px;
   font-weight: 700;
   font-size: 15px;
-  width: 220px;
-  text-align: left;
+  width: 180px;
   transition: all 0.3s;
+  cursor: pointer;
   > i {
+    transition: all 0.3s;
     padding-right: 10px;
     color: #fff;
   }
