@@ -1,7 +1,6 @@
 <script setup>
 import axios from 'axios'
 import { ref } from 'vue'
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth'
 
 const keyword = ref('')
 const searchFlg = ref(false)
@@ -159,9 +158,9 @@ const searchBook = () => {
     vertical-align: middle;
   }
   &_Title {
+    width: 230px;
     overflow: hidden;
     white-space: nowrap;
-    width: 230px;
     text-overflow: ellipsis;
     font-size: 13px;
     margin: 0px 0px 5px 5px;

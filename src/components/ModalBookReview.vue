@@ -46,7 +46,6 @@ const selectStatus = (status) => {
 
 const changeScore = (score, index) => {
   score.flg = true
-  //trueの場合はそれ以降のscoreもtrueに
   score_list.forEach((item, i) => {
     if (i <= index) {
       item.flg = score.flg
@@ -65,7 +64,7 @@ const stopEvent = (event) => {
   <div id="overlay" @click="clickEvent">
     <div class="modal" @click="stopEvent">
       <div class="modal__header">
-        <p class="modal__title">本棚に追加</p>
+        <p class="modal__title">My本棚に追加</p>
       </div>
       <p class="modal__bookTitle">{{ props.book_title }}</p>
       <div class="Modal_Main">
@@ -100,6 +99,7 @@ const stopEvent = (event) => {
                   <span v-for="(score, index) in score_list" :key="index">
                     <i
                       @click="changeScore(score, index)"
+                      class="Score_Icon"
                       :class="[score.flg ? 'fas' : 'far', 'fa-star']"
                     />
                   </span>
@@ -150,7 +150,8 @@ const stopEvent = (event) => {
     text-align: left;
     color: #fff;
     margin: 0;
-    margin-left: 10px;
+    margin-left: 20px;
+    font-weight: 700;
   }
   &__bookTitle {
     display: block;
@@ -186,6 +187,7 @@ const stopEvent = (event) => {
     border-radius: 5px;
     width: 100%;
     height: 100px;
+    font-size: 14px;
   }
   &_Input {
     font-size: 14px;
@@ -257,11 +259,6 @@ const stopEvent = (event) => {
     }
   }
 }
-.status_toggle {
-  // border: 1px solid #ddd;
-  // border-radius: 5px;
-  width: 325px;
-}
 
 .book_status {
   cursor: pointer;
@@ -314,6 +311,11 @@ const stopEvent = (event) => {
 }
 .isSelected {
   background: #fcbd4c;
+  border: 1px solid #fcbd4c;
   color: #fff;
+}
+.Score_Icon {
+  color: #fcbd4c;
+  cursor: pointer;
 }
 </style>

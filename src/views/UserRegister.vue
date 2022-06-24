@@ -1,4 +1,47 @@
-<script setup lang="ts"></script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import firebase from 'firebase/app'
+
+const email = ref('')
+const password = ref('')
+const name = ref('')
+const getUid = ref('')
+
+const router = useRouter()
+
+const signIn = () => {
+  let email = email
+  let password = password
+  let name = name
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user
+      getUid.value = user.uid
+      // authModule.setLoginUser(user)ログインユーザー情報とuidを保持
+      // authModule.changeFlgTrue()ヘッダーの表示を変更する
+    })
+    .then(() => {
+      if (getUid.value) {
+        firebase
+          .firestore()
+          .collection(`users/${getUid.value}/userInfo`)
+          .add({ name })
+          .then(() => {
+            router.replace('/')
+          })
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      if (errorCode === 'auth/email-already-in-use') {
+        console.log('エラー！')
+      }
+    })
+}
+</script>
 
 <template>
   <div class="wrapper">
@@ -11,9 +54,7 @@
         <input class="signIn__input" type="email" v-model="email" />
         <p class="signIn__subTitle">パスワード</p>
         <input class="signIn__input" type="password" v-model="password" />
-        <button class="main-btn" :disabled="invalid" @click="signIn()">
-          登録する
-        </button>
+        <button class="main-btn" @click="signIn()">登録する</button>
         <router-link to="/">トップ画面に戻る</router-link>
       </div>
     </div>
@@ -79,30 +120,6 @@
   }
 }
 
-@media screen and (max-width: 480px) {
-  .login__form {
-    margin: 60px auto;
-    width: 330px;
-  }
-}
-
-.home__img {
-  //この幅を絶対値へ
-  width: 40%;
-  position: relative;
-  .home__img__1 {
-    position: absolute;
-    top: -10px;
-    left: 90px;
-    width: 350px;
-  }
-  .home__img__2 {
-    position: absolute;
-    top: 130px;
-    left: -100px;
-  }
-}
-
 //ログイン・新規登録画面で使用
 .main-btn {
   display: block;
@@ -119,17 +136,6 @@
   &:hover {
     background-color: #e5e5e5;
     color: #fcbd4c;
-  }
-}
-
-.error-message {
-  font-size: 13px;
-}
-
-@media screen and (max-width: 480px) {
-  .resister__form {
-    margin: 60px auto;
-    width: 330px;
   }
 }
 </style>

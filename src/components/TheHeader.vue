@@ -6,7 +6,7 @@
       >
       <nav class="Header_nav">
         <div class="Header_nav_wrapper">
-          <span>ログアウト</span>
+          <router-link to="/login"><span>ログイン</span></router-link>
         </div>
       </nav>
     </div>

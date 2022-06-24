@@ -1,13 +1,15 @@
 import { createApp } from "vue";
+// import firebase from 'firebase/app'
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { initializeApp } from "firebase/app";
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
+
 
 library.add(fas, far, fab)
 
@@ -20,11 +22,13 @@ const firebaseConfig = {
   appId: "1:646866539633:web:b269c31f15d30c855737d0"
 };
 
-const firebase = initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+// export const firebaseApp = () => { return firebase };
 
-export const firebaseApp = () => { return firebase };
-
-export default firebase;
+// export default firebase;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+export default db; //追加
 
 createApp(App).use(store).use(router).mount("#app");
 

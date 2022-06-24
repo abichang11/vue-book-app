@@ -10,13 +10,8 @@ window.scrollTo({
 
 const router = useRouter()
 const route = useRoute()
-
 const showContent = ref(false)
 const bookInfo = ref({})
-// const bookInfo = reactive({
-//   bookInfo: {},
-//   id: '',
-// })
 
 console.log(route.params.id)
 bookInfo.value = JSON.parse(route.params.bookInfo)
@@ -46,6 +41,7 @@ const toHome = () => {
   router.replace('/')
 }
 </script>
+
 <template>
   <div class="BookDetail">
     <div class="BookDetail_Area">
@@ -58,7 +54,7 @@ const toHome = () => {
           <p class="BookInfo_Author">{{ bookInfo.author }}</p>
         </div>
         <button @click="openModal" class="btn__contents">
-          <i class="fas fa-book-open"></i>本棚に追加する
+          <i class="fas fa-book-open"></i>My本棚に追加する
         </button>
       </div>
       <div class="BookDetail_Right">
@@ -204,7 +200,7 @@ caption {
   margin-top: 10px;
   font-weight: 700;
   font-size: 15px;
-  width: 180px;
+  width: 190px;
   transition: all 0.3s;
   cursor: pointer;
   > i {
