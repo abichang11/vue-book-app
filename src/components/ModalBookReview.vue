@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
+import { reactive } from 'vue'
 
 window.scrollTo({
   top: 0,
@@ -15,15 +16,44 @@ const props = defineProps({
 
 const emit = defineEmits(['from-child'])
 
-const status_list = [
-  { name: '未設定', flg: false },
+const status_list = reactive([
+  { name: '未設定', flg: true },
   { name: '読みたい', flg: false },
   { name: '読んでいる', flg: false },
   { name: '読み終わった', flg: false },
-]
+])
+
+const score_list = reactive([
+  { score: 1, flg: false },
+  { score: 2, flg: false },
+  { score: 3, flg: false },
+  { score: 4, flg: false },
+  { score: 5, flg: false },
+])
 
 const clickEvent = () => {
   emit('from-child')
+}
+
+const selectStatus = (status) => {
+  status.flg = !status.flg
+  status_list.forEach((item) => {
+    if (status.name !== item.name) {
+      item.flg = false
+    }
+  })
+}
+
+const changeScore = (score, index) => {
+  score.flg = true
+  //trueの場合はそれ以降のscoreもtrueに
+  score_list.forEach((item, i) => {
+    if (i <= index) {
+      item.flg = score.flg
+    } else {
+      item.flg = false
+    }
+  })
 }
 
 const stopEvent = (event) => {
@@ -56,6 +86,8 @@ const stopEvent = (event) => {
                       class="book_status"
                       v-for="(status, index) in status_list"
                       :key="index"
+                      @click="selectStatus(status)"
+                      :class="{ isSelected: status.flg }"
                     >
                       {{ status.name }}
                     </span>
@@ -65,11 +97,12 @@ const stopEvent = (event) => {
               <tr>
                 <th>評価</th>
                 <td class="Td_Left">
-                  <i class="fas fa-star" />
-                  <i class="fas fa-star" />
-                  <i class="fas fa-star" />
-                  <i class="far fa-star" />
-                  <i class="far fa-star" />
+                  <span v-for="(score, index) in score_list" :key="index">
+                    <i
+                      @click="changeScore(score, index)"
+                      :class="[score.flg ? 'fas' : 'far', 'fa-star']"
+                    />
+                  </span>
                 </td>
               </tr>
               <tr>
@@ -101,7 +134,7 @@ const stopEvent = (event) => {
 <style lang="scss" scoped>
 .modal {
   z-index: 2;
-  width: 640px;
+  width: 680px;
   background: #fff;
   border-radius: 10px;
   &__header {
@@ -225,8 +258,8 @@ const stopEvent = (event) => {
   }
 }
 .status_toggle {
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  // border: 1px solid #ddd;
+  // border-radius: 5px;
   width: 325px;
 }
 
@@ -235,10 +268,17 @@ const stopEvent = (event) => {
   display: inline-block;
   text-align: center;
   padding: 5px;
-  border-right: 1px solid #ddd;
+  border: 1px solid #ddd;
+  border-right: 0;
   font-size: 15px;
+  &:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
   &:last-child {
-    border-right: 0;
+    border-right: 1px solid #ddd;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }
 .editBtn {
@@ -271,5 +311,9 @@ const stopEvent = (event) => {
     padding: 5px 10px;
     cursor: pointer;
   }
+}
+.isSelected {
+  background: #fcbd4c;
+  color: #fff;
 }
 </style>
