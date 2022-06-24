@@ -3,6 +3,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { initializeApp } from "firebase/app";
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+
+library.add(fas, far, fab)
 
 const firebaseConfig = {
   apiKey: "AIzaSyD3C8T_xtA0kR1CSnbjEOPFlCaTB7ylxxk",
@@ -20,3 +27,4 @@ export const firebaseApp = () => { return firebase };
 export default firebase;
 
 createApp(App).use(store).use(router).mount("#app");
+

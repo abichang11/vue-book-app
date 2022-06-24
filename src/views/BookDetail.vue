@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-// import Modal from '@/components/molecules/modal.vue'
+import ModalBookReview from '@/components/ModalBookReview.vue'
 
 window.scrollTo({
   top: 0,
@@ -18,6 +18,7 @@ const bookInfo = ref({})
 //   id: '',
 // })
 
+console.log(route.params.id)
 bookInfo.value = JSON.parse(route.params.bookInfo)
 // created() {
 //   console.log('ページが開きました')
@@ -38,9 +39,9 @@ bookInfo.value = JSON.parse(route.params.bookInfo)
 const openModal = () => {
   showContent.value = true
 }
-// closeModal = () => {
-//   showContent.value = false
-// }
+const closeModal = () => {
+  showContent.value = false
+}
 const toHome = () => {
   router.replace('/')
 }
@@ -95,14 +96,14 @@ const toHome = () => {
       </div>
     </div>
     <button class="moreView-btn" @click="toHome">トップ画面に戻る</button>
-    <!-- <Modal
+    <ModalBookReview
       v-show="showContent"
       @from-child="closeModal"
-      :book_title="this.bookInfo.title"
-      :book_author="this.bookInfo.author"
-      :book_image="this.bookInfo.mediumImageUrl"
-      :book_image2="this.bookInfo.largeImageUrl"
-    /> -->
+      :book_title="bookInfo.title"
+      :book_author="bookInfo.author"
+      :book_image="bookInfo.mediumImageUrl"
+      :book_image2="bookInfo.largeImageUrl"
+    />
   </div>
 </template>
 
